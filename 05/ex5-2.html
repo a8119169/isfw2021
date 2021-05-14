@@ -12,6 +12,8 @@
     <script>
         function button1Pressed() {
             doInsert();
+            Cleartext1();
+            Cleartext2();
         }
 
         async function doInsert() {
@@ -24,6 +26,17 @@
 
             document.getElementById('result').innerHTML = "tweetしました";
         }
+
+        async function Cleartext1(){
+            var tform1 = document.getElementById("tf1");
+            tform1.value = '';
+        }
+
+        async function Cleartext2() {
+                var tform2 = document.getElementById("tf2");
+                tform2.value = '';
+            }
+
     </script>
 
 </head>
