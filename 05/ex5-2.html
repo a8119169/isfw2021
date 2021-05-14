@@ -14,6 +14,7 @@
             doInsert();
             Cleartext1();
             Cleartext2();
+            doSelect();
         }
 
         async function doInsert() {
@@ -35,6 +36,20 @@
         async function Cleartext2() {
                 var tform2 = document.getElementById("tf2");
                 tform2.value = '';
+            }
+
+        async function doSelect() {
+                var sql = 'select * from Tweets order by time desc limit 20';
+                var objects = await osql.connect(sql);
+                console.log(objects);
+                var html = '';
+                html = html + '<ul>';
+                for (var i = 0; i < objects.length; i++) {
+                    var object = objects[i];
+                    html = html + '<li>' + 'ID:' + object.id + ' [name]:' + object.name + '(' + object.time + ')' + object.tweet + '</li>';
+                }
+                html = html + '</ul>';
+                document.getElementById('result').innerHTML = html;
             }
 
     </script>
