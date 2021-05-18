@@ -19,6 +19,13 @@
             console.log(username)
             document.getElementById('welcome').innerHTML = 'ようこそ'+ username + 'さん';
         }
+
+        function updateUser(){
+            location.href = 'update.html';
+        }
+
+        html = html + '<td>' + '<a href="update.html?userid=' + object.id + '">変更</a>' + '</td>';
+
     </script>
 
 </head>
@@ -27,6 +34,9 @@
     <h1>ユーザトップ</h1>
     <p id="welcome">ようこそxxさん</p>
     <hr>
+    <br>
+    <button onclick = 'updateUser()'>ユーザ情報更新</button>
+    <li><a href="update.html?"></li>
 
 </body>
 

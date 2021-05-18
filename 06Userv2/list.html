@@ -15,7 +15,7 @@
         });
 
         async function buttondelete(userid){
-            var sql = `delete from Users where id = "${userid}"`
+            var sql = `delete from Users where id = ”${userid}"`
             var objects = await osql.connect(sql);
             console.log(objects);
 
