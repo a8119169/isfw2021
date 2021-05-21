@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="../jquery.min.js"></script>
+    <script type="text/javascript" src="../settings.js"></script>
+    <script type="text/javascript" src="../osql.js"></script>
+
+    <script>
+        function button1Pressed() {
+            doInsert();
+            Cleartext1();
+            Cleartext2();
+            doSelect();
+            
+        }
+
+        $().ready(function () {
+            doSelect();
+            setInterval(doSelect, 2000);
+            getname();
+        });
+
+        async function doInsert() {
+            var userid = document.getElementById('tf1').value;
+            var tweet = document.getElementById('tf2').value;
+
+            var sql = `insert into Tweets (name, tweet, time) values("${userid}", "${tweet}", now());`;
+            var objects = await osql.connect(sql);
+            console.log(objects);
+
+            document.getElementById('resulttweet').innerHTML = "tweetしました";
+        }
+
+        //async function Cleartext1(){
+        //var tform1 = document.getElementById("tf1");
+        //tform1.value = '';}
+
+        async function Cleartext2() {
+            var tform2 = document.getElementById("tf2");
+            tform2.value = '';
+        }
+
+        async function doSelect() {
+            var sql = 'select * from Tweets order by time desc limit 20';
+            var objects = await osql.connect(sql);
+            console.log(objects);    
+            var html = '';
+            html = html + '<ul>';
+            html = html + '<table border = "1" width = 500>';
+            html = html + '<tr>'
+            html = html + '<th>' + 'ID' + '</th>' + '<th>' + '名前' + '</th>' + '<th>' + '時間' + '</th>' + '<th>' + 'Tweet' + '</th>';
+            html = html + '</tr>'
+            for (var i = 0; i < objects.length; i++) {
+                var object = objects[i];
+                
+                html = html + '<tr>'
+                html = html + '<td width = 50px>' + object.id + '</td>' + '<td>' + name + '</td>' + '<td>' + object.time + '</td>' + '<td>' + object.tweet + '</td>';
+                html = html + '<tr>'
+            }
+            html = html + '</ul>';
+            document.getElementById('result').innerHTML = html;
+        }
+
+        function getname(){
+            var name = sessionStorage.getItem('username');
+            console.log(name)
+            document.getElementById('tf1').value = name;
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <h1>Tweets</h1>
+    <br>
+    名前:<input id="tf1" value="" type="textfield">
+    <br>
+    tweet:<input id="tf2" type="textfield">
+    <button onclick="button1Pressed()">tweet</button>
+    <br>
+    <p id="resulttweet"></p>
+    <hr>
+    <p id="result"></p>
+</body>
+
+</html>
