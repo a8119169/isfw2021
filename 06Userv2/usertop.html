@@ -27,15 +27,13 @@
             location.href = `update.html?userid=${sessionStorage.getItem('userid')}`;
         }
         function showtweet(){
-            var username = sessionStorage.getItem('username');
-            var useid = sessionStorage.getItem('userid');
+            //var name = document.getElementById('userid');
+            //sessionStorage.setItem('name',name)
 
-            var sql = `insert into Tweets (name, tweet, time) values("${userid}", "${tweet}", now());`;
-            var objects = await osql.connect(sql);
-            console.log(objects);
-
-            document.getElementById('resulttweet').innerHTML = "tweetしました";
-
+            console.log(sessionStorage.getItem('userid'));
+            location.href = `v2showtweet.html?uname=${sessionStorage.getItem('userid')}`;
+            
+            //location.href = 'v2showtweet.html';
         }
 
 
